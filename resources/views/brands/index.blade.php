@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Daftar Brand Wings</title>
@@ -56,7 +57,7 @@
             width: 140px;
             height: 140px;
             margin: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -84,53 +85,59 @@
             width: 100%;
             height: 100%;
         }
+
+        .carousel-inner img {
+            object-fit: contain;
+        }
     </style>
 </head>
+
 <body>
 
-<h1>Daftar Brand Wings</h1>
+    <h1>Daftar Brand Wings</h1>
 
-<div class="filter-buttons">
-    <a href="#" onclick="loadCategory('fabric')">Fabric Care</a>
-    <a href="#" onclick="loadCategory('food')">Food</a>
-    <a href="#" onclick="loadCategory('beverage')">Beverage</a>
-</div>
+    <div class="filter-buttons">
+        <a href="#" onclick="loadCategory('fabric')">Fabric Care</a>
+        <a href="#" onclick="loadCategory('food')">Food</a>
+        <a href="#" onclick="loadCategory('beverage')">Beverage</a>
+    </div>
 
-<div id="brand-container" class="brand-grid">
-    <!-- Brand logo akan dimasukkan lewat JavaScript -->
-</div>
+    <div id="brand-container" class="brand-grid">
+        <!-- Brand logo akan dimasukkan lewat JavaScript -->
+    </div>
 
-<script>
+    <script>
 
 
-    function toSlug(name) {
-        return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
-    }
+        function toSlug(name) {
+            return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+        }
 
-    function loadCategory(category) {
-        const container = document.getElementById('brand-container');
-        container.innerHTML = '';
+        function loadCategory(category) {
+            const container = document.getElementById('brand-container');
+            container.innerHTML = '';
 
-        data[category].forEach((brand, i) => {
-            const div = document.createElement('div');
-            div.classList.add('brand');
+            data[category].forEach((brand, i) => {
+                const div = document.createElement('div');
+                div.classList.add('brand');
 
-            // Buat slug dan tautkan ke URL brand
-            const brandUrl = `/brands/${toSlug(brand.name)}`;
-            div.innerHTML = `<a href="${brandUrl}"><img src="${brand.logo}" alt="${brand.name}"></a>`;
+                // Buat slug dan tautkan ke URL brand
+                const brandUrl = `/brands/${toSlug(brand.name)}`;
+                div.innerHTML = `<a href="${brandUrl}"><img src="${brand.logo}" alt="${brand.name}"></a>`;
 
-            container.appendChild(div);
+                container.appendChild(div);
 
-            // animasi muncul bertahap
-            setTimeout(() => {
-                div.classList.add('show');
-            }, i * 150);
-        });
-    }
+                // animasi muncul bertahap
+                setTimeout(() => {
+                    div.classList.add('show');
+                }, i * 150);
+            });
+        }
 
-    // load kategori awal
-    loadCategory('fabric');
-</script>
+        // load kategori awal
+        loadCategory('fabric');
+    </script>
 
 </body>
+
 </html>

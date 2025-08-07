@@ -17,7 +17,7 @@ class BrandsSeeder extends Seeder
         $homeCareId = Category::where('slug', 'home-care')->value('id');
         $personalCareId = Category::where('slug', 'personal-care')->value('id');
 
-        // Brand data lengkap (41 brand resmi)
+        // Brand data lengkap
         $brands = [
             // Fabric Care
             ['name' => 'Daia', 'category_id' => $fabricCareId],
@@ -53,35 +53,38 @@ class BrandsSeeder extends Seeder
             // Home Care
             ['name' => 'WPC Kloset', 'category_id' => $homeCareId],
             ['name' => 'Wings Biru', 'category_id' => $homeCareId],
-            ['name' => 'Wiz 24', 'category_id' => $homeCareId, $personalCareId],
-
+            ['name' => 'Wiz 24', 'category_id' => $homeCareId], // FIXED
 
             // Personal Care
             ['name' => 'Nuvo', 'category_id' => $personalCareId],
-            ['name' => 'Fres', 'category_id' => $personalCareId],
+            ['name' => 'Fres & Natural Spray', 'category_id' => $personalCareId],
             ['name' => 'Fres & Natural Soap', 'category_id' => $personalCareId],
             ['name' => 'Baby Happy', 'category_id' => $personalCareId],
             ['name' => 'Hers Protex', 'category_id' => $personalCareId],
             ['name' => 'Giv', 'category_id' => $personalCareId],
             ['name' => 'Giv White', 'category_id' => $personalCareId],
             ['name' => 'So Soft', 'category_id' => $personalCareId],
-            
         ];
 
         foreach ($brands as $brand) {
             $slug = Str::slug($brand['name']);
-            $logo = $slug . '.png';
 
-            // Cegah duplikat slug
+            // Cek kategori berdasarkan ID
+            $category = Category::find($brand['category_id']);
+            $categorySlug = $category ? $category->slug : 'uncategorized';
+
+            $logoPath = 'brands/' . $categorySlug . '/' . $slug . '.png';
+
             Brand::updateOrCreate(
-                ['slug' => $slug], // cari berdasarkan slug
-                [   // data yang akan diupdate/dibuat
+                ['slug' => $slug],
+                [
                     'name' => $brand['name'],
-                    'logo_path' => $logo,
+                    'slug' => $slug,
                     'category_id' => $brand['category_id'],
+                    'logo_path' => $logoPath,
                 ]
             );
-        }
 
+        }
     }
 }

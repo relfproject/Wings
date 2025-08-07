@@ -10,7 +10,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('products.index') }}">CRUD Produk</a>
+            <a class="navbar-brand" href="{{ route('products.index') }}">CRUD</a>
             <div>
                 <a class="btn btn-outline-light" href="{{ route('products.create') }}">+ Tambah Produk</a>
             </div>

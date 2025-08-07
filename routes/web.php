@@ -19,3 +19,7 @@ Route::get('/brands/{slug}', [BrandController::class, 'show'])->name('brands.sho
 
 // Products (CRUD)
 Route::resource('products', ProductController::class);
+
+// Brand berdasarkan kategori
+Route::get('/categories/{slug}/brands', [BrandController::class, 'showByCategory'])->name('brands.byCategory');
+

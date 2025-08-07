@@ -2,43 +2,43 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">{{ $brand->name }}</h1>
 
-        {{-- Tampilkan logo brand --}}
-        @if($brand->logo_path)
-            <img src="{{ asset('storage/' . $brand->logo_path) }}" alt="{{ $brand->name }}" class="rounded-circle" width="120" height="120" style="object-fit: cover;">
-        @endif
+        {{-- Nama Brand --}}
+        <div class="text-center my-4">
+            <h2 class="fw-bold">{{ $brand->name }}</h2> {{-- Pastikan variabel $brand dikirim dari controller --}}
+        </div>
 
-
-        <h4>Daftar Produk:</h4>
+        {{-- Daftar Produk --}}
         <div class="row">
             @forelse($products as $product)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        {{-- Tampilkan gambar produk --}}
+                <div class="col-md-3 col-sm-6 mb-4"> {{-- 4 kolom di desktop, 2 di mobile --}}
+                    <div class="card h-100 shadow-sm border-0 rounded-4 text-center">
+                        {{-- Gambar produk --}}
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="card-img-top"
-                                style="height: 200px; object-fit: cover;">
-
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                 class="card-img-top p-3"
+                                 style="height: 200px; object-fit: contain;">
                         @else
-                            <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image" class="card-img-top"
-                                style="height: 200px; object-fit: cover;">
+                            <img src="https://via.placeholder.com/200x200?text=No+Image"
+                                 class="card-img-top p-3"
+                                 style="height: 200px; object-fit: contain;">
                         @endif
 
                         <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
-                        </div>
-                        <div class="card-footer text-end">
-                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                            <h6 class="card-title mb-1 fw-bold">{{ $product->name }}</h6>
+                            <p class="card-text text-muted small">{{ Str::limit($product->description, 80) }}</p>
                         </div>
                     </div>
                 </div>
             @empty
-                <p>Tidak ada produk untuk brand ini.</p>
+                <p class="text-muted">Tidak ada produk untuk brand ini.</p>
             @endforelse
         </div>
 
-        <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Kembali</a>
+        {{-- Tombol kembali --}}
+        <div class="text-center mt-4">
+            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">← Kembali</a>
+        </div>
+
     </div>
 @endsection
